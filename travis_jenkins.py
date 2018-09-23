@@ -116,6 +116,7 @@ fi
 sudo docker stop %(DOCKER_CONTAINER_NAME)s || echo "docker stop %(DOCKER_CONTAINER_NAME)s ends with $?"
 sudo docker rm %(DOCKER_CONTAINER_NAME)s || echo  "docker rm %(DOCKER_CONTAINER_NAME)s ends with $?"
 sudo docker pull %(DOCKER_IMAGE_JENKINS)s || true
+sudo docker ps || true
 sudo docker run %(DOCKER_RUN_OPTION)s \\
     --name %(DOCKER_CONTAINER_NAME)s \\
     -e ROS_DISTRO='%(ROS_DISTRO)s' \\
@@ -205,7 +206,7 @@ BUILD_SET_CONFIG= 'job/%(name)s/%(number)d/configSubmit'
 
 class Jenkins(jenkins.Jenkins):
     # http://blog.keshi.org/hogememo/2012/12/14/jenkins-setting-build-info
-    def set_build_config(self, name, number, display_name, description): # need to allow anonymous user to update build 
+    def set_build_config(self, name, number, display_name, description): # need to allow anonymous user to update build
         try:
             # print '{{ "displayName": "{}", "description": "{}" }}'.format(display_name, description)
             response = self.jenkins_open(urllib2.Request(
@@ -444,5 +445,3 @@ if result == "SUCCESS" :
     exit(0)
 else:
     exit(1)
-
-
