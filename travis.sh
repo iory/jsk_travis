@@ -90,6 +90,8 @@ if [ "$USE_DOCKER" = true ]; then
     DOCKER_XSERVER_OPTIONS='-v /tmp/.X11-unix:/tmp/.X11-unix -e QT_X11_NO_MITSHM -e DISPLAY'
   fi
 
+  echo "================================================================================================"
+  docker ps -a
   docker pull $DOCKER_IMAGE || true
   docker run -v $HOME:$HOME \
     $DOCKER_XSERVER_OPTIONS \
